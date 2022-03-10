@@ -10,6 +10,7 @@ class Migration(migrations.Migration):
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
         ('oc_lettings_site', '0003_auto_20220309_1340'),
+        ('profiles', '0002_auto_20220309_1423')
     ]
 
     operations = [
