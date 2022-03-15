@@ -16,7 +16,7 @@ SECRET_KEY = os.environ.get('secret_key')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG')
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['oc-lettings-15.herokuapp.com', '127.0.0.1:8000', 'localhost:8000']
 
 
 # Application definition
