@@ -3,3 +3,4 @@ flake8==3.7.0
 pytest-django==3.9.0
 python-dotenv==0.19.2
 flake8-html==0.4.1
+six==1.16.0
