@@ -47,6 +47,7 @@ jobs:
       - setup_remote_docker
       - run:
           name: Containerize app and push to docker
+          image_tag: latest
           command: |
             echo $DOCKER_PASSWORD | docker login -u $DOCKER_USER --password-stdin
             docker build -t $DOCKER_USER/oc-lettings:$CIRCLE_SHA1 .
