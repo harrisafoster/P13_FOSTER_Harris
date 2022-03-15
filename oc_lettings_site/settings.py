@@ -1,5 +1,6 @@
 import os
 from dotenv import load_dotenv, find_dotenv
+import sys
 
 load_dotenv(find_dotenv())
 
@@ -67,16 +68,34 @@ WSGI_APPLICATION = 'oc_lettings_site.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get('DB_NAME'),
-        'USER': os.environ.get('DB_USERNAME'),
-        'PASSWORD': os.environ.get('DB_PASSWORD'),
-        'HOST': os.environ.get('DB_HOST'),
-        'PORT': os.environ.get('DB_PORT'),
+if 'pytest' in sys.argv:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': os.environ.get('TEST_DB_NAME'),
+            'USER': os.environ.get('TEST_DB_USERNAME'),
+            'PASSWORD': os.environ.get('TEST_DB_USERNAME'),
+            'HOST': os.environ.get('TEST_DB_HOST'),
+            'PORT': os.environ.get('TEST_DB_PORT'),
+            'TEST': {
+                'NAME': os.environ.get('TEST_DB_NAME')
+            }
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': os.environ.get('DB_NAME'),
+            'USER': os.environ.get('DB_USERNAME'),
+            'PASSWORD': os.environ.get('DB_PASSWORD'),
+            'HOST': os.environ.get('DB_HOST'),
+            'PORT': os.environ.get('DB_PORT'),
+            'TEST': {
+                'NAME': os.environ.get('DB_NAME')
+            }
+        }
+    }
 
 
 # Password validation
