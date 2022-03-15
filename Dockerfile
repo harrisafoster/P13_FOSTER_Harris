@@ -7,4 +7,4 @@ COPY requirements.txt /code/
 RUN pip install -r requirements.txt
 COPY . /code/
 EXPOSE $PORT
-CMD python3 oc_lettings/manage.py runserver 0.0.0.0:$PORT
+CMD python3 manage.py runserver 0.0.0.0:$PORT
