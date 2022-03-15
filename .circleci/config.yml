@@ -51,7 +51,7 @@ jobs:
           command: |
             echo $DOCKER_PASSWORD | docker login -u $DOCKER_USER --password-stdin
             docker build -t $DOCKER_USER/oc-lettings:$CIRCLE_SHA1 .
-            docker push $DOCKER_USER/oc_lettings:$CIRCLE_SHA1
+            docker push $DOCKER_USER/oc-lettings:$CIRCLE_SHA1
 
 workflows:
   main:
