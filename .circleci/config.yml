@@ -4,7 +4,7 @@ orbs:
   python: circleci/python@1.5.0
 
 jobs:
-  build-and-test:
+  build-test-lint-store:
     docker:
       - image: cimg/python:3.9
     steps:
@@ -27,6 +27,16 @@ jobs:
           command: |
             . env/bin/activate
             pytest
+
+      - run:
+          name: Run linting
+          command: |
+            . env/bin/activate
+            flake8 --format=html --htmldir=flake-report
+
+      - store_artifacts:
+          path: flake-report/
+          destination: flake-report
 
 workflows:
   main:
