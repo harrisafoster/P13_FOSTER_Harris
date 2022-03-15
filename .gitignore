@@ -4,3 +4,4 @@ env
 .env
 *.sqlite3
 .idea
+backup.json
