@@ -47,11 +47,24 @@ jobs:
       - setup_remote_docker
       - run:
           name: Containerize app and push to docker
-          image_tag: latest
           command: |
             echo $DOCKER_PASSWORD | docker login -u $DOCKER_USER --password-stdin
             docker build -t $DOCKER_USER/oc-lettings:$CIRCLE_SHA1 .
             docker push $DOCKER_USER/oc-lettings:$CIRCLE_SHA1
+
+  deployment:
+    machine: true
+    steps:
+      - checkout
+      - run:
+          name: Push docker image to Heroku
+          command: |
+            sudo curl https://cli-assets.heroku.com/install.sh | sh
+            HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:login
+            HEROKU_API_KEY=${HEROKU_TOKEN} heroku config:set secret_key=$secret_key -a $HEROKU_APP_NAME
+            HEROKU_API_KEY=${HEROKU_TOKEN} heroku config:set DEBUG=$DEBUG -a $HEROKU_APP_NAME
+            HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:push -a $HEROKU_APP_NAME web
+            HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:release -a $HEROKU_APP_NAME web
 
 workflows:
   main:
@@ -60,3 +73,14 @@ workflows:
       - containerization:
           requires:
             - build-test-lint-store
+          filters:
+            branches:
+              only: master
+      - deployment:
+          requires:
+            - build-test-lint-store
+            - containerization
+          filters:
+            branches:
+              only: master
+
