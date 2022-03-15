@@ -44,15 +44,18 @@ jobs:
 
     steps:
       - checkout
-      - steup_remote_docker
+      - setup_remote_docker
       - run:
           name: Containerize app and push to docker
           command: |
-            echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
-            docker build -t $DOCKER_USERNAME/oc-lettings:$CIRCLE_SHA256 .
-            docker push $DOCKER_USERNAME/oc_lettings:$CIRCLE_SHA256
+            echo $DOCKER_PASSWORD | docker login -u $DOCKER_USER --password-stdin
+            docker build -t $DOCKER_USER/oc-lettings:$CIRCLE_SHA1 .
+            docker push $DOCKER_USER/oc_lettings:$CIRCLE_SHA1
 
 workflows:
   main:
     jobs:
       - build-test-lint-store
+      - containerization:
+          requires:
+            - build-test-lint-store
