@@ -74,7 +74,7 @@ if 'pytest' in sys.argv:
             'ENGINE': 'django.db.backends.postgresql',
             'NAME': os.environ.get('TEST_DB_NAME'),
             'USER': os.environ.get('TEST_DB_USERNAME'),
-            'PASSWORD': os.environ.get('TEST_DB_USERNAME'),
+            'PASSWORD': os.environ.get('TEST_DB_PASSWORD'),
             'HOST': os.environ.get('TEST_DB_HOST'),
             'PORT': os.environ.get('TEST_DB_PORT'),
             'TEST': {
