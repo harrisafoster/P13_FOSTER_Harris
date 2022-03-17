@@ -1,6 +1,7 @@
 import os
 from dotenv import load_dotenv, find_dotenv
 import sys
+import dj_database_url
 
 load_dotenv(find_dotenv())
 
@@ -71,31 +72,15 @@ WSGI_APPLICATION = 'oc_lettings_site.wsgi.application'
 if 'pytest' in sys.argv:
     DATABASES = {
         'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': os.environ.get('TEST_DB_NAME'),
-            'USER': os.environ.get('TEST_DB_USERNAME'),
-            'PASSWORD': os.environ.get('TEST_DB_PASSWORD'),
-            'HOST': os.environ.get('TEST_DB_HOST'),
-            'PORT': os.environ.get('TEST_DB_PORT'),
-            'TEST': {
-                'NAME': os.environ.get('TEST_DB_NAME')
-            }
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': 'oc-lettings-site.sqlite3',
         }
     }
 else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': os.environ.get('DB_NAME'),
-            'USER': os.environ.get('DB_USERNAME'),
-            'PASSWORD': os.environ.get('DB_PASSWORD'),
-            'HOST': os.environ.get('DB_HOST'),
-            'PORT': os.environ.get('DB_PORT'),
-            'TEST': {
-                'NAME': os.environ.get('DB_NAME')
-            }
-        }
-    }
+    DATABASES = {}
+    DATABASES['default'] = dj_database_url.config(conn_max_age=600,
+                                                  ssl_require=True,
+                                                  default=os.environ.get('DATABASE_URL'))
 
 
 # Password validation
