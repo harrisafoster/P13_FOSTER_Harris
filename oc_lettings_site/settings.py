@@ -2,6 +2,8 @@ import os
 from dotenv import load_dotenv, find_dotenv
 import sys
 import dj_database_url
+import sentry_sdk
+from sentry_sdk.integrations.django import DjangoIntegration
 
 load_dotenv(find_dotenv())
 
@@ -120,3 +122,19 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# Sentry config
+
+sentry_sdk.init(
+    dsn="https://85ca320bd08d455781e8cd2881dd8df0@o1171155.ingest.sentry.io/6265287",
+    integrations=[DjangoIntegration()],
+
+    # Set traces_sample_rate to 1.0 to capture 100%
+    # of transactions for performance monitoring.
+    # We recommend adjusting this value in production.
+    traces_sample_rate=1.0,
+
+    # If you wish to associate users to errors (assuming you are using
+    # django.contrib.auth) you may enable sending PII data.
+    send_default_pii=True
+)
