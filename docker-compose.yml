@@ -1,0 +1,17 @@
+version: "3.8"
+
+services:
+  web:
+    build: .
+    volumes:
+      - .:/code
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=${DATABASE_URL}
+      - secret_key=${secret_key}
+      - DEBUG=${DEBUG}
+    command: ["python",
+              "manage.py",
+              "runserver",
+              "0.0.0.0:${PORT}"]
