@@ -11,6 +11,7 @@ services:
       - DATABASE_URL=${DATABASE_URL}
       - secret_key=${secret_key}
       - DEBUG=${DEBUG}
+      - SENTRY_URL_KEY=${SENTRY_URL_KEY}
     command: ["python",
               "manage.py",
               "runserver",
