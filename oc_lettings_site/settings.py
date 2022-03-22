@@ -71,7 +71,9 @@ WSGI_APPLICATION = 'oc_lettings_site.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-if 'test' in sys.argv:
+TESTING = os.path.basename(sys.argv[0]) in ('pytest', 'py.test')
+
+if 'test' in sys.argv or TESTING:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
