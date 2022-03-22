@@ -73,7 +73,7 @@ WSGI_APPLICATION = 'oc_lettings_site.wsgi.application'
 
 TESTING = os.path.basename(sys.argv[0]) in ('pytest', 'py.test')
 
-if 'test' in sys.argv or TESTING:
+if 'test' in sys.argv or TESTING or os.environ.get('LOCAL_DEV') == 'True':
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
