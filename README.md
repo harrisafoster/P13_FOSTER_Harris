@@ -202,6 +202,7 @@ DOCKER_PASSWORD=votre_mot_de_passe_docker
 
 ### Utilisation
 
+1. Depuis une image créée localement : 
 ```sh
 $ docker login
 $ docker compose up
@@ -210,6 +211,15 @@ Accédez au site avec sur votre port 8000, ex. http://127.0.0.1:8000/
 
 La commande `$ docker compose up` fonctionne parce que le fichier docker-compose.yml contient des instructions pour faire tourner l'application en local via docker.
 
+2. Depuis une image récupérée du répositoire en ligne : 
+```sh
+$ docker pull docker_user/docker_repository:latest_tag
+$ docker run -p 8000:8000 --env-file .env docker_user/docker_repository:latest_tag
+
+```
+Accédez au site avec sur votre port 8000, ex. http://127.0.0.1:8000/
+
+A savoir qu'il faut utiliser votre nom d'utilisateur de docker, votre nom du répo docker, ainsi que le tag de votre dernière image qui a été mis sur docker
 ## Sentry
 
 Sentry est une application de suivi d'erreurs non gérées.
