@@ -144,7 +144,7 @@ Le déploiement de Heroku nécessite une base de données PostgreSQL (qui sera u
 - Créez votre base de données postgreSQL heroku avec : `$ heroku.cmd addons:create heroku-postgresql:hobby-dev`
 - Ou en suivant les instructions en ligne sur votre projet heroku (Resources => Heroku Postgres => Add => Hobby Dev - Free => submit order form)
 - Une fois que votre base de données est créée cherchez son URL unique sure heroku.com (votre_projet => installed addons => votre_db => settings => database credentials => view credentials => URI)
-- Changez la valeur de DATABASE_URL dans vote fichier .env à `DATABASE_URL=votre_URI_unique_de_base_de_données`
+- Changez la valeur de DATABASE_URL dans votre fichier .env à `DATABASE_URL=votre_URI_unique_de_base_de_données`
 - Ensuite, il suffit de faire (dans l'ordre, dans votre terminal) 
   - `$ python manage.py migrate` 
   - `$ python manage.py shell` 
@@ -213,9 +213,8 @@ La commande `$ docker compose up` fonctionne parce que le fichier docker-compose
 
 2. Depuis une image récupérée du répositoire en ligne : 
 ```sh
-$ docker pull docker_user/docker_repository:latest_tag
+$ docker login
 $ docker run -p 8000:8000 --env-file .env docker_user/docker_repository:latest_tag
-
 ```
 Accédez au site avec sur votre port 8000, ex. http://127.0.0.1:8000/
 
